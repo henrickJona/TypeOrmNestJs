@@ -1,9 +1,10 @@
-import { Module } from "@nestjs/common";
-import {SocketGateway} from "../socket/shared/websocket.gateway";
-import {CacheModule} from "../cache/cache.module";
+import { Module, forwardRef } from '@nestjs/common';
+import { SocketGateway } from '../socket/shared/websocket.gateway';
+import { CacheModule } from '../cache/cache.module';
+import { MessagesModule } from '../messages/messages.module';
 @Module({
-	imports:[CacheModule],
-	providers: [SocketGateway],
-	exports:[SocketGateway]
+  imports: [forwardRef(() => MessagesModule), CacheModule],
+  providers: [SocketGateway],
+  exports: [SocketGateway],
 })
 export class WebsocketModule {}

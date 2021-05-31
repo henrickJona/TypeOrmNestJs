@@ -7,7 +7,10 @@ export class Cache {
 
   public async save(key: string, value: any): Promise<void> {
     /* console.log('iiiiiiiiiiiiiiiiii',key,value) */
-    this.client.set(key, JSON.stringify(value)/* , 'EX', redisConfig.cacheTime */);
+    this.client.set(
+      key,
+      JSON.stringify(value) /* , 'EX', redisConfig.cacheTime */,
+    );
   }
 
   public async recover<T>(key: string): Promise<T | undefined> {
@@ -29,9 +32,7 @@ export class Cache {
 
     const keys = (await this.client.keys(formattedPrefix)) as string[];
 
-    const formattedKeys = keys.map((key) =>
-      key.replace(`Teste:`, ''),
-    );
+    const formattedKeys = keys.map((key) => key.replace(`Teste:`, ''));
 
     return formattedKeys;
   }
@@ -41,9 +42,7 @@ export class Cache {
 
     const keys = (await this.client.keys(formattedPrefix)) as string[];
 
-    const formattedKeys = keys.map((key) =>
-      key.replace(`Teste:`, ''),
-    );
+    const formattedKeys = keys.map((key) => key.replace(`Teste:`, ''));
 
     const pipeline = this.client.pipeline();
 
